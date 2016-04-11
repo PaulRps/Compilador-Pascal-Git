@@ -1,0 +1,29 @@
+program exLocal;
+var
+   a, b, c: boolean;
+
+function display(d,e,f:integer):boolean;
+var
+   a, b, c: boolean;
+
+begin
+   c := not a and c;
+   a := 10 ;
+   b := a;
+end;
+
+procedure other(d,e,f:integer);
+var
+   a, b, c: integer;
+
+begin
+   c := ((d * a) + (b / c)) + a;
+   a := 10;
+   b := 11.1;
+end;
+
+begin
+   a:= a;
+   b:= a;
+   c:= b;
+end.
