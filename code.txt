@@ -7,8 +7,10 @@ var
    a, b, c: boolean;
 
 begin
+   if(a <> b) then c:=a;
+   while( (10+50) > 100 ) do a := b;
    c := not a and c;
-   a := 10 ;
+   //a := 10;//erro
    b := a;
 end;
 
@@ -19,7 +21,7 @@ var
 begin
    c := ((d * a) + (b / c)) + a;
    a := 10;
-   b := 11.1;
+   //b := 11.1;//erro
 end;
 
 begin

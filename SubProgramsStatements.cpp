@@ -297,6 +297,9 @@ void SubProgramsStatements::command(){
     NEXT_TOKEN;
     expression();
 
+    Stack::compute_expression( Stack::post_fix_order() );//avalia a expressao do if
+    Stack::pct.clear();//limpa pct
+
   if(SyntaticalAnalizer::compareToken("then")){
 
     NEXT_TOKEN;
@@ -312,6 +315,9 @@ void SubProgramsStatements::command(){
 
     NEXT_TOKEN;
     expression();
+
+    Stack::compute_expression( Stack::post_fix_order() );//avalia a expressao do while
+    Stack::pct.clear();//limpa pct
 
     if(SyntaticalAnalizer::compareToken("do")){
 
