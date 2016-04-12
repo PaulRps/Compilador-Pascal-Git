@@ -329,6 +329,68 @@ void SubProgramsStatements::command(){
       SyntaticalAnalizer::error("expected 'do' instead '","SubProgramsStatements.cpp:command()");
     }
 
+  }else if(SyntaticalAnalizer::compareToken("for")){
+
+    NEXT_TOKEN;
+
+    if(SyntaticalAnalizer::compareCategory("identificador")){
+
+      NEXT_TOKEN;
+
+      if(SyntaticalAnalizer::compareToken(":=")){
+
+        NEXT_TOKEN;
+
+        if(SyntaticalAnalizer::getTb_Token()->getType().compare("integer") == 0){
+
+          NEXT_TOKEN;
+
+          if(SyntaticalAnalizer::compareToken("to")){
+
+            NEXT_TOKEN;
+
+            if(SyntaticalAnalizer::getTb_Token()->getType().compare("integer") == 0){
+
+              NEXT_TOKEN;
+
+              if(SyntaticalAnalizer::compareToken("do")){
+
+                NEXT_TOKEN;
+
+                command();
+                //composite_command();
+
+              }else{
+                //erro 'do' do for
+                SyntaticalAnalizer::error("expected 'do' instead '","SubProgramsStatements.cpp:command()");
+              }
+
+            }else{
+              //erro tipo for
+              SyntaticalAnalizer::error("expected 'integer' instead '","SubProgramsStatements.cpp:command()");
+            }
+
+          }else{
+            //erro for
+            SyntaticalAnalizer::error("expected 'to' instead '","SubProgramsStatements.cpp:command()");
+          }
+
+        }else{
+          //erro de tipo
+          SyntaticalAnalizer::error("expected 'integer' instead '","SubProgramsStatements.cpp:command()");
+        }
+
+      }else{
+        //erro for :=
+        SyntaticalAnalizer::error("expected ':=' instead '","SubProgramsStatements.cpp:command()");
+      }
+
+    }else{
+      //erro id for
+      SyntaticalAnalizer::error("expected 'id' of 'for' instead '","SubProgramsStatements.cpp:command()");
+    }
+
+
   }
 
 }

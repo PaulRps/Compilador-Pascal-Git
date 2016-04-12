@@ -1,49 +1,34 @@
-﻿program Program;
-var a, b, c, d: integer;
-    e, f, g, h: real;
-    i, b: boolean;
+program exLocal;
+var
+   a, b, c: boolean;
 
-procedure prod1;
+function display(d,e,f:integer):boolean;
+var
+   display, exLocal,
+    b,
+     c: boolean;
+
 begin
+   if(a <> b) then c:=a;
+   while( (10+50) > 100 ) do a := b;
+   
+   c := not a and c;
+   //a := 10;//erro
+   b := a;
 end;
 
-procedure prod2(a, b: integer);
-    var a: integer;
-begin
-end;
+procedure other(d,e,f:integer);
+var
+   a, b, c: integer;
 
-procedure prod3(a : integer; b: boolean; c: real);
-    var b: integer;
-        procedure prod3_1;
-        begin
-            something;
-        end;
 begin
-    something;
+   c := ((d * a) + (b / c)) + a;
+   a := 10;
+   //b := 11.1;//erro
 end;
 
 begin
-    a := 1 + 1;
-
-    if a = b then
-    begin
-        write1(1+1);
-    end;
-
-    if a = b then
-    begin
-        write1(1+1);
-    end
-    else
-        write2;
-
-    while Ch <> 2 do
-    begin
-        a := - b + c;
-        b := 3.3 * metodo;
-        c := a or b and not c;
-        d := 3 * multiplica(soma(5), menos(6)) or true;
-        e := a or false;
-        f := true or 3.5;
-    end;
+   a:= a;
+   b:= a;
+   c:= b;
 end.

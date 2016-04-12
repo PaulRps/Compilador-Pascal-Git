@@ -97,7 +97,7 @@ void AFD::ignoreToken(){
 
 void AFD::initMap_KeyWords(){
 
-  string words[] = {"program", "var", "integer", "real", "boolean", "procedure", "function","begin", "end", "if", "then", "else", "while", "do"};
+  string words[] = {"program", "var", "integer", "real", "boolean", "procedure", "function","begin", "end", "if", "then", "else", "while", "for", "to","do"};
   unsigned int n = sizeof(words) / sizeof(words[0]);
 
   keyWords["and"] = "operador-multiplicativo";
