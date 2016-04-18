@@ -35,8 +35,6 @@ void SubProgramsStatements::subProgram_Statement(){
 
     if(SyntaticalAnalizer::compareCategory("identificador")){
 
-      //CHECK_SCOPE;//ta dando erro aqui, na checagem de escopo
-
       SyntaticalAnalizer::getTb_Token()->setType("procedure");//seta o tipo do ID para diferenciar entre de variavel e funcao
       if(PUSH_ID){//guarda o id do programa na pilha de ids de procedures e verifica se ela ja esta no escopo atual
         //id e unico
@@ -75,8 +73,6 @@ void SubProgramsStatements::subProgram_Statement(){
     NEXT_TOKEN;
 
     if(SyntaticalAnalizer::compareCategory("identificador")){
-
-      //CHECK_SCOPE;//ta dando erro aqui, na checagem de escopo
 
       SyntaticalAnalizer::getTb_Token()->setType("procedure");//seta o tipo do ID para diferenciar entre de variavel e funcao
       if(PUSH_ID){//guarda o id do programa na pilha de ids de procedures e verifica se ela ja esta no escopo atual
@@ -176,7 +172,7 @@ void SubProgramsStatements::parameters_list_2(){
   if(SyntaticalAnalizer::compareToken(";")){
 
     NEXT_TOKEN;
-    //gambiarra
+
     if(SyntaticalAnalizer::compareCategory("identificador")){//se tiver mais declaracao de variavel
       VariableStatement::identifiers_list();
     }else{
