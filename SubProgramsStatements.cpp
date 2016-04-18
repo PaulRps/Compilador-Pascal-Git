@@ -219,9 +219,9 @@ void SubProgramsStatements::composite_command(){
     optional_commands();
 
     if(SyntaticalAnalizer::compareToken("end")){
-      if(!Stack::pct.empty()){
+      if(!Stack::PcT_isEmpty()){
         Stack::compute_expression( Stack::post_fix_order() );
-        Stack::pct.clear();
+        Stack::PcT_clear();
       }
 
       NEXT_TOKEN;
@@ -257,7 +257,7 @@ void SubProgramsStatements::commands_list_2(){
 
     vector<Token> a = Stack::post_fix_order();
     string s = Stack::compute_expression( a );
-    Stack::pct.clear();
+    Stack::PcT_clear();
 
     NEXT_TOKEN;
     command();
@@ -277,8 +277,8 @@ void SubProgramsStatements::command(){
     //pega token para comparar tipos :=
     variable();
 
-    Stack::push_in_pct(&(*(SyntaticalAnalizer::getTb_Token() -1)));//emplinha o id
-    Stack::push_in_pct(&(*(SyntaticalAnalizer::getTb_Token())));//emplinha o :=
+    Stack::push_in_PcT(&(*(SyntaticalAnalizer::getTb_Token() -1)));//emplinha o id
+    Stack::push_in_PcT(&(*(SyntaticalAnalizer::getTb_Token())));//emplinha o :=
 
     NEXT_TOKEN;//ja testou o ':=' acima, passa para prox
     expression();
@@ -298,7 +298,7 @@ void SubProgramsStatements::command(){
     expression();
 
     Stack::compute_expression( Stack::post_fix_order() );//avalia a expressao do if
-    Stack::pct.clear();//limpa pct
+    Stack::PcT_clear();//limpa pct
 
   if(SyntaticalAnalizer::compareToken("then")){
 
@@ -317,7 +317,7 @@ void SubProgramsStatements::command(){
     expression();
 
     Stack::compute_expression( Stack::post_fix_order() );//avalia a expressao do while
-    Stack::pct.clear();//limpa pct
+    Stack::PcT_clear();//limpa pct
 
     if(SyntaticalAnalizer::compareToken("do")){
 
@@ -420,7 +420,7 @@ void SubProgramsStatements::expression_2(){
 
     relational_op();
 
-    Stack::push_in_pct(&(*(SyntaticalAnalizer::getTb_Token() -1)));
+    Stack::push_in_PcT(&(*(SyntaticalAnalizer::getTb_Token() -1)));
 
     simple_expression();
 
@@ -468,7 +468,7 @@ void SubProgramsStatements::simple_expression(){
   if(SyntaticalAnalizer::compareToken("+") || SyntaticalAnalizer::compareToken("-")){
 
     SyntaticalAnalizer::getTb_Token()->setCategory("operador-unario");
-    Stack::push_in_pct( &(*SyntaticalAnalizer::getTb_Token()) );
+    Stack::push_in_PcT( &(*SyntaticalAnalizer::getTb_Token()) );
 
     NEXT_TOKEN;
 
@@ -492,7 +492,7 @@ void SubProgramsStatements::simple_expression_2(){
 
     additive_op();
 
-    Stack::push_in_pct(&(*(SyntaticalAnalizer::getTb_Token() -1)));
+    Stack::push_in_PcT(&(*(SyntaticalAnalizer::getTb_Token() -1)));
 
     term();
     simple_expression_2();
@@ -526,7 +526,7 @@ void SubProgramsStatements::term_2(){
 
     multiplicative_op();
 
-    Stack::push_in_pct(&(*(SyntaticalAnalizer::getTb_Token() -1)));
+    Stack::push_in_PcT(&(*(SyntaticalAnalizer::getTb_Token() -1)));
 
     factor();
     term_2();
@@ -542,24 +542,24 @@ void SubProgramsStatements::factor(){
 
     CHECK_SCOPE;
 
-    Stack::push_in_pct(&(*SyntaticalAnalizer::getTb_Token()));//coloca na pct
+    Stack::push_in_PcT(&(*SyntaticalAnalizer::getTb_Token()));//coloca na pct
 
     NEXT_TOKEN;
     factor_2();
 
   }else if(SyntaticalAnalizer::compareCategory("inteiro")){
 
-    Stack::push_in_pct(&(*SyntaticalAnalizer::getTb_Token()));//coloca os numeros inteiros na pct
+    Stack::push_in_PcT(&(*SyntaticalAnalizer::getTb_Token()));//coloca os numeros inteiros na pct
     NEXT_TOKEN;
 
   }else if(SyntaticalAnalizer::compareCategory("real")){
 
-    Stack::push_in_pct(&(*SyntaticalAnalizer::getTb_Token()));//coloca os numeros reais na pct
+    Stack::push_in_PcT(&(*SyntaticalAnalizer::getTb_Token()));//coloca os numeros reais na pct
     NEXT_TOKEN;
 
   }else if(SyntaticalAnalizer::compareCategory("boolean")){
 
-    Stack::push_in_pct(&(*SyntaticalAnalizer::getTb_Token()));//coloca os booleans na pct
+    Stack::push_in_PcT(&(*SyntaticalAnalizer::getTb_Token()));//coloca os booleans na pct
     NEXT_TOKEN;
 
   // }else if(SyntaticalAnalizer::compareCategory("false")){
@@ -568,14 +568,14 @@ void SubProgramsStatements::factor(){
 
   }else if(SyntaticalAnalizer::compareToken("(")){
 
-    Stack::push_in_pct(&(*SyntaticalAnalizer::getTb_Token()));//coloca na pct
+    Stack::push_in_PcT(&(*SyntaticalAnalizer::getTb_Token()));//coloca na pct
 
     NEXT_TOKEN;
     expression();
 
     if(SyntaticalAnalizer::compareToken(")")){
 
-      Stack::push_in_pct(&(*SyntaticalAnalizer::getTb_Token()));//coloca na pct
+      Stack::push_in_PcT(&(*SyntaticalAnalizer::getTb_Token()));//coloca na pct
       NEXT_TOKEN;
 
     }else{
@@ -585,7 +585,7 @@ void SubProgramsStatements::factor(){
 
   }else if(SyntaticalAnalizer::compareToken("not")){
 
-    Stack::push_in_pct(&(*SyntaticalAnalizer::getTb_Token()));//coloca na pct
+    Stack::push_in_PcT(&(*SyntaticalAnalizer::getTb_Token()));//coloca na pct
 
     NEXT_TOKEN;
     factor();
@@ -598,14 +598,14 @@ void SubProgramsStatements::factor_2(){
 
   if(SyntaticalAnalizer::compareToken("(")){
 
-    Stack::push_in_pct(&(*SyntaticalAnalizer::getTb_Token()));//coloca na pct
+    Stack::push_in_PcT(&(*SyntaticalAnalizer::getTb_Token()));//coloca na pct
 
     NEXT_TOKEN;
     expressions_list();
 
     if(SyntaticalAnalizer::compareToken(")")){
 
-      Stack::push_in_pct(&(*SyntaticalAnalizer::getTb_Token()));//coloca na pct
+      Stack::push_in_PcT(&(*SyntaticalAnalizer::getTb_Token()));//coloca na pct
 
       NEXT_TOKEN;
 
@@ -670,10 +670,6 @@ void SubProgramsStatements::variable(){
   if(SyntaticalAnalizer::compareCategory("identificador")){
 
     CHECK_SCOPE;
-
-    //ta retornando null
-    // Token *t = Stack::search_and_get_ID(SyntaticalAnalizer::get_currentToken());//pega o token com o seu tipo para pôr na pct
-    // Stack::push_in_pct(t);//push variavel na pct
 
     NEXT_TOKEN;
 

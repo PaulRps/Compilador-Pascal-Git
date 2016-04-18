@@ -103,9 +103,9 @@ void VariableStatement::identifiers_list(){
     identifiers_list_2();
 
   }else{//TEM QUE SER VAZIO AQUI PARA SUBPROGRAMAS
-    //erro identifiers_list ID
-    //SyntaticalAnalizer::error("expected 'id'","77:VariableStatement.cpp::identifiers_list()");
+
   }
+
 }
 
 void VariableStatement::identifiers_list_2(){
@@ -158,20 +158,6 @@ void VariableStatement::check_scope(){
       SyntaticalAnalizer::error("variable 'id' don't declared '"," in ");
     }
   }
-}
-
-void VariableStatement::check_scope_procedure(){
-
-  // if(!Stack::search_current_scope_proceduresID(SyntaticalAnalizer::getTb_Token()->getToken())){
-  //
-  // }else{
-
-    if(!Stack::search_all_scope_proceduresID(SyntaticalAnalizer::getTb_Token()->getToken())){
-
-    }else{
-      SyntaticalAnalizer::error("procedure 'id' was declared '"," in ");
-    }
-  // }
 }
 
 void VariableStatement::count_statement_ID(){

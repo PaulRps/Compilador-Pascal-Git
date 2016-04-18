@@ -9,7 +9,7 @@ var
 
    end;
 
-   procedure display(d,e,f:integer);
+   procedure dis(d,e,f:integer);
    var
      display:integer;
 

@@ -8,11 +8,9 @@
 
 #define NEXT_TOKEN SyntaticalAnalizer::nextToken()
 #define PUSH_ID Stack::push(&(*SyntaticalAnalizer::getTb_Token()))
-#define PUSH_PROCEDURE_ID Stack::push_proceduresID(&(*SyntaticalAnalizer::getTb_Token()))
 #define ID_IS_IN_CURRENT_SCOPE Stack::search_current_scope(&(*SyntaticalAnalizer::getTb_Token()))
 #define ID_IS_IN_GLOBAL_SCOPE Stack::search_all_scope(&(*SyntaticalAnalizer::getTb_Token()))
 #define CHECK_SCOPE VariableStatement::check_scope()
-#define CHECK_SCOPE_PROCEDURE VariableStatement::check_scope_procedure()
 #define COUNT_BEGIN Stack::count_begin()
 #define COUNT_END Stack::count_end()
 #define CHECK_END_SCOPE Stack::check_end_scope()

@@ -2,17 +2,14 @@
 
 int Stack::topStack = 0;
 int Stack::baseStack = 0;
-int Stack::baseStack_procedureID = 0;
 int Stack::count_begin_end = 0;
 vector<Token> Stack::scopes;
-vector<Token> Stack::stack_procedures_ID;
-vector<Token> Stack::pct;
+vector<Token> Stack::PcT;
 vector<string> Stack::stack_operators;
 
 void Stack::init_stack(){
 
   scopes.push_back( (Token) {"#","begin_scope",baseStack});
-  // stack_procedures_ID.push_back( (Token) {"#","begin_scope", baseStack_procedureID});
   baseStack = topStack;
   topStack++;
 }
@@ -22,16 +19,6 @@ bool Stack::push(Token *id){
   if(!search_current_scope(id)){
     scopes.emplace( scopes.begin() + topStack, *id);
     ++topStack;
-    return true;
-  }else{
-    return false;
-  }
-}
-
-bool Stack::push_proceduresID(Token *id){
-
-  if(!search_current_scope_proceduresID(id->getToken())){
-    stack_procedures_ID.emplace(stack_procedures_ID.begin() + stack_procedures_ID.size(), *id);
     return true;
   }else{
     return false;
@@ -54,14 +41,10 @@ bool Stack::pop_scope(){
   if(!isEmpty()){
 
     int aux = scopes[baseStack].getLine();//pega a posicao da base anterior
-    // int aux2 = stack_procedures_ID[baseStack_procedureID].getLine();
-
     scopes.erase(scopes.begin() + baseStack, scopes.begin() + topStack);
-    // stack_procedures_ID.erase(stack_procedures_ID.begin() + baseStack_procedureID, stack_procedures_ID.begin() + stack_procedures_ID.size());
 
     topStack = baseStack;
     baseStack = aux;//restaura a base do escopo anterior a essa - gambiarra
-    // baseStack_procedureID = aux2;
 
     return true;
 
@@ -74,11 +57,17 @@ bool Stack::isEmpty(){
   return (topStack == 0)? true:false;
 }
 
+bool Stack::PcT_isEmpty(){
+  return PcT.empty() ? true: false;
+}
+
+void Stack::PcT_clear(){
+  PcT.clear();
+}
+
 void Stack::end_scope(){
 
   scopes.emplace( scopes.begin() + topStack, (Token) {"#","end_scope", baseStack} );
-  // stack_procedures_ID.emplace(stack_procedures_ID.begin() + stack_procedures_ID.size(), (Token) {"#","end_scope", baseStack_procedureID} );
-  // baseStack_procedureID = stack_procedures_ID.size() - 1;
   baseStack = topStack;
   topStack++;
 }
@@ -106,19 +95,6 @@ bool Stack::search_all_scope(Token *id){
   return result;
 }
 
-bool Stack::search_all_scope_proceduresID(string id){
-
-  bool result = false;
-  int top = stack_procedures_ID.size();
-
-  for(int i = 1; i < top; ++i){
-    if( id.compare( stack_procedures_ID[i].getToken() ) == 0){
-      result = true;
-    }
-  }
-  return result;
-}
-
 bool Stack::search_current_scope(Token *id){
 
   if(isEmpty()) return false;
@@ -139,18 +115,6 @@ bool Stack::search_current_scope(Token *id){
       }
     }
 
-  }
-  return false;
-}
-
-bool Stack::search_current_scope_proceduresID(string id){
-
-  if(stack_procedures_ID.size() == 0) return false;
-  int top = stack_procedures_ID.size();
-  for(int i = baseStack_procedureID + 1; i < top; ++i){
-    if( stack_procedures_ID[i].getToken().compare( id ) == 0){//se forem do mesmo tipo, sao as mesmas
-      return true;
-    }
   }
   return false;
 }
@@ -176,8 +140,8 @@ void Stack::setType_ID(int qtd_id, string type){
   }
 }
 
-bool Stack::push_in_pct(Token *id){
-  pct.push_back(*id);
+bool Stack::push_in_PcT(Token *id){
+  PcT.push_back(*id);
   return 1;
 }
 
@@ -385,11 +349,11 @@ Token* Stack::search_and_get_ID(string id){
 
 vector<Token> Stack::post_fix_order(){
 
-  vector<Token>::iterator it = pct.begin();
+  vector<Token>::iterator it = PcT.begin();
   stack<Token> operators;
   vector<Token> expression;
 
-  for(; it != pct.end(); ++it){
+  for(; it != PcT.end(); ++it){
 
     if(it->getType().compare("integer") == 0 || it->getType().compare("boolean") == 0 || it->getType().compare("real") == 0){
 

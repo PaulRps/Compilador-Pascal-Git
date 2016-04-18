@@ -6,6 +6,8 @@
 #define ID_IS_IN_CURRENT_SCOPE Stack::search_current_scope(&(*SyntaticalAnalizer::getTb_Token()))
 #define ID_IS_IN_GLOBAL_SCOPE Stack::search_all_scope(&(*SyntaticalAnalizer::getTb_Token()))
 #define AMOUNT_IDs getCount_statement_ID()
+
+
 #include "SyntaticalAnalizer.h"
 #include "Stack.h"
 
@@ -24,7 +26,6 @@ public:
   static void identifiers_list_2();
   static void type();
   static void check_scope();
-  static void check_scope_procedure();
   static void count_statement_ID();
   static int getCount_statement_ID();
   static void reset_count_statement_ID();

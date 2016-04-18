@@ -1,4 +1,4 @@
-CC=@clang++  -std=c++11
+CC=@clang++ -Wall -std=c++11
 DEBUG= -g3
 
 pascal : *.cpp *.h #main.cpp AFD.cpp File.cpp Token.cpp SyntaticalAnalizer.cpp VariableStatement.cpp SubProgramsStatements.cpp Stack.cpp
