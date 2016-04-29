@@ -1,13 +1,9 @@
-#include "AFD.h"
+#include "Lexical.h"
 #include "Token.h"
 #include "File.h"
 #include "SyntaticalAnalizer.h"
-//#include "myStack.h"
 #include "Stack.h"
 #include <string>
-
-//compilar classes: g++ .h -c .cpp ...
-//compilar: g++ -g3 main.cpp AFD.cpp Token.cpp File.cpp SyntaticalAnalizer.cpp VariableStatement.cpp SubProgramsStatements.cpp -o pascal
 
 using namespace std;
 

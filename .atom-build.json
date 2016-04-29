@@ -1,0 +1,17 @@
+{
+  "cmd": "g++",
+  "args": [
+      "-std=c++11",
+      "-g3 -Wall -Werror",
+      "-I Lexical_Analizer\\Headers",
+      "-I Syntax_Analizer\\Headers",
+      "-I Semantic_Analizer\\Headers",
+      "-I Utils\\Headers",
+      "Lexical_Analizer\\*.cpp",
+      "Syntax_Analizer\\*.cpp",
+      "Semantic_Analizer\\*.cpp",
+      "Utils\\*.cpp",
+      "main.cpp",
+      "-o Build\\pascal"
+  ]
+}
