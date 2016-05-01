@@ -33,7 +33,7 @@ string File::dataInput(string fileName){
 
   }else{
 
-    cout << "O ARQUIVO " << fileName << " NAO EXISTE NESSE DIRETORIO!" << endl;
+    cout << "\nO ARQUIVO " << fileName << " NAO EXISTE NESSE DIRETORIO!" << endl;
     exit (EXIT_FAILURE);
 
   }

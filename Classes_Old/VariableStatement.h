@@ -1,15 +1,15 @@
 #ifndef __VariableStatement_H__
 #define __VariableStatement_H__
 
-#define NEXT_TOKEN SyntaticalAnalizer::nextToken()
-#define PUSH_ID Stack::push(&(*SyntaticalAnalizer::getTb_Token()))
-#define ID_IS_IN_CURRENT_SCOPE Stack::search_current_scope(&(*SyntaticalAnalizer::getTb_Token()))
-#define ID_IS_IN_GLOBAL_SCOPE Stack::search_all_scope(&(*SyntaticalAnalizer::getTb_Token()))
+#define NEXT_TOKEN Syntax::nextToken()
+#define PUSH_ID MyStack::push(&(*Syntax::getTb_Token()))
+#define ID_IS_IN_CURRENT_SCOPE MyStack::search_current_scope(&(*Syntax::getTb_Token()))
+#define ID_IS_IN_GLOBAL_SCOPE MyStack::search_all_scope(&(*Syntax::getTb_Token()))
 #define AMOUNT_IDs getCount_statement_ID()
 
 
-#include "SyntaticalAnalizer.h"
-#include "Stack.h"
+#include "Syntax.h"
+#include "MyStack.h"
 
 using namespace std;
 

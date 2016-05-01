@@ -1,9 +1,4 @@
-#include "Lexical.h"
-#include "Token.h"
-#include "File.h"
-#include "SyntaticalAnalizer.h"
-#include "Stack.h"
-#include <string>
+#include "Syntax.h"
 
 using namespace std;
 
@@ -13,7 +8,7 @@ int main(){
 
 	try{
 
-		SyntaticalAnalizer::program(); //b >= ((c+10)/1)
+		Syntax::program();
 
 	}catch(runtime_error &e){
 		cout << e.what() << endl;

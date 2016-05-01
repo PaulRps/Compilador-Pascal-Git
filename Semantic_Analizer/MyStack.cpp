@@ -1,20 +1,19 @@
-#include "Stack.h"
+#include "MyStack.h"
 
-int Stack::topStack_ = 0;
-int Stack::baseStack_ = 0;
-int Stack::count_begin_end_ = 0;
-vector<Token> Stack::scopes_;
-vector<Token> Stack::PcT_;
-vector<string> Stack::stack_operators_;
+int MyStack::topStack_ = 0;
+int MyStack::baseStack_ = 0;
+int MyStack::count_begin_end_ = 0;
+vector<Token> MyStack::scopes_;
+vector<Token> MyStack::PcT_;
 
-void Stack::init_stack(){
+void MyStack::init_MyStack(){
 
   scopes_.push_back( (Token) {"#","begin_scope",baseStack_});
   baseStack_ = topStack_;
   topStack_++;
 }
 
-bool Stack::push(Token *id){
+bool MyStack::push(Token *id){
 
   if(!search_current_scope(id)){
     scopes_.emplace( scopes_.begin() + topStack_, *id);
@@ -25,7 +24,7 @@ bool Stack::push(Token *id){
   }
 }
 
-bool Stack::pop(){
+bool MyStack::pop(){
 
   if(!isEmpty()){
     scopes_.pop_back();
@@ -36,7 +35,7 @@ bool Stack::pop(){
   }
 }
 
-bool Stack::pop_scope(){
+bool MyStack::pop_scope(){
 
   if(!isEmpty()){
 
@@ -53,26 +52,26 @@ bool Stack::pop_scope(){
   }
 }
 
-bool Stack::isEmpty(){
+bool MyStack::isEmpty(){
   return (topStack_ == 0)? true:false;
 }
 
-bool Stack::PcT_isEmpty(){
+bool MyStack::PcT_isEmpty(){
   return PcT_.empty() ? true: false;
 }
 
-void Stack::PcT_clear(){
+void MyStack::PcT_clear(){
   PcT_.clear();
 }
 
-void Stack::end_scope(){
+void MyStack::end_scope(){
 
   scopes_.emplace( scopes_.begin() + topStack_, (Token) {"#","end_scope", baseStack_} );
   baseStack_ = topStack_;
   topStack_++;
 }
 
-bool Stack::search_all_scope(Token *id){
+bool MyStack::search_all_scope(Token *id){
 
   bool result = false;
   for(int i = 1; i < topStack_; ++i){
@@ -95,7 +94,7 @@ bool Stack::search_all_scope(Token *id){
   return result;
 }
 
-bool Stack::search_current_scope(Token *id){
+bool MyStack::search_current_scope(Token *id){
 
   if(isEmpty()) return false;
   for(int i = baseStack_ + 1; i < topStack_; ++i){
@@ -119,19 +118,19 @@ bool Stack::search_current_scope(Token *id){
   return false;
 }
 
-void Stack::count_begin(){
+void MyStack::count_begin(){
   ++count_begin_end_;
 }
 
-void Stack::count_end(){
+void MyStack::count_end(){
   --count_begin_end_;
 }
 
-bool Stack::check_end_scope(){
+bool MyStack::check_end_scope(){
   return (count_begin_end_ == 0)? true: false;
 }
 
-void Stack::setType_ID(int qtd_id, string type){
+void MyStack::setType_ID(int qtd_id, string type){
 
   int top = topStack_-1;
   for(int i = 0; i < qtd_id; ++i){
@@ -140,17 +139,17 @@ void Stack::setType_ID(int qtd_id, string type){
   }
 }
 
-bool Stack::push_in_PcT(Token *id){
+bool MyStack::push_in_PcT(Token *id){
   PcT_.push_back(*id);
   return 1;
 }
 
-bool Stack::push_in_stackOperators(string op){
-  stack_operators_.push_back(op);
-  return true;
-}
+// bool Stack::push_in_stackOperators(string op){
+//   stack_operators_.push_back(op);
+//   return true;
+// }
 
-string Stack::compute_expression(vector<Token> expression){
+string MyStack::compute_expression(vector<Token> expression){
 
   vector<Token>::iterator it = expression.begin();
   for(int i = 0; expression.size() > 1; ++it, ++i){
@@ -184,7 +183,7 @@ string Stack::compute_expression(vector<Token> expression){
 
 }
 
-string Stack::throw_error_type( Token *op1, Token *op2, Token *op){
+string MyStack::throw_error_type( Token *op1, Token *op2, Token *op){
 
   string error = "ERROR:: operands of incompatible types '";
   error += op1->getToken();
@@ -203,7 +202,7 @@ string Stack::throw_error_type( Token *op1, Token *op2, Token *op){
   return error;
 }
 
-string Stack::check_type(Token *op1, Token *op2, Token *op){
+string MyStack::check_type(Token *op1, Token *op2, Token *op){
 
 
   if(op->getCategory().compare("operador-logico") == 0 ){
@@ -331,11 +330,11 @@ string Stack::check_type(Token *op1, Token *op2, Token *op){
 
   }
 
-  throw runtime_error("Stack.cpp::check_type() faltou retorno!");
+  throw runtime_error("MyStack.cpp::check_type() faltou retorno!");
 
 }
 
-Token* Stack::search_and_get_ID(string id){
+Token* MyStack::search_and_get_ID(string id){
 
   if(isEmpty()) return NULL;
   for(int i = topStack_-1; i >= baseStack_+1; --i){
@@ -347,7 +346,7 @@ Token* Stack::search_and_get_ID(string id){
   return NULL;
 }
 
-vector<Token> Stack::post_fix_order(){
+vector<Token> MyStack::post_fix_order(){
 
   vector<Token>::iterator it = PcT_.begin();
   stack<Token> operators;
@@ -557,14 +556,14 @@ vector<Token> Stack::post_fix_order(){
 
 }
 
-void Stack::show(){
-
-  for(int i = 0, j = 1; i < topStack_ - 1; ++i){
-
-    if( scopes_[i].getToken().compare("#") == 0 ){
-      cout << "\tScope " << j++ << endl;
-    }else{
-      cout << scopes_[i].getToken() << endl;
-    }
-  }
-}
+// void MyStack::show(){
+//
+//   for(int i = 0, j = 1; i < topStack_ - 1; ++i){
+//
+//     if( scopes_[i].getToken().compare("#") == 0 ){
+//       cout << "\tScope " << j++ << endl;
+//     }else{
+//       cout << scopes_[i].getToken() << endl;
+//     }
+//   }
+// }

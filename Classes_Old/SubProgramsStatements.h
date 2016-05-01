@@ -1,27 +1,25 @@
 #ifndef __SubProgramsStatements_H__
 #define __SubProgramsStatements_H__
 
-#include "SyntaticalAnalizer.h"
+#include "Syntax.h"
 #include "VariableStatement.h"
-#include "Stack.h"
+#include "MyStack.h"
 #include <vector>
 
-#define NEXT_TOKEN SyntaticalAnalizer::nextToken()
-#define PUSH_ID Stack::push(&(*SyntaticalAnalizer::getTb_Token()))
-#define ID_IS_IN_CURRENT_SCOPE Stack::search_current_scope(&(*SyntaticalAnalizer::getTb_Token()))
-#define ID_IS_IN_GLOBAL_SCOPE Stack::search_all_scope(&(*SyntaticalAnalizer::getTb_Token()))
+#define NEXT_TOKEN Syntax::nextToken()
+#define PUSH_ID MyStack::push(&(*Syntax::getTb_Token()))
+#define ID_IS_IN_CURRENT_SCOPE MyStack::search_current_scope(&(*Syntax::getTb_Token()))
+#define ID_IS_IN_GLOBAL_SCOPE MyStack::search_all_scope(&(*Syntax::getTb_Token()))
 #define CHECK_SCOPE VariableStatement::check_scope()
-#define COUNT_BEGIN Stack::count_begin()
-#define COUNT_END Stack::count_end()
-#define CHECK_END_SCOPE Stack::check_end_scope()
-#define POP_SCOPE Stack::pop_scope()
-#define END_SCOPE Stack::end_scope()
+#define COUNT_BEGIN MyStack::count_begin()
+#define COUNT_END MyStack::count_end()
+#define CHECK_END_SCOPE MyStack::check_end_scope()
+#define POP_SCOPE MyStack::pop_scope()
+#define END_SCOPE MyStack::end_scope()
 
 using namespace std;
 
 class SubProgramsStatements{
-
-private:
 
 public:
   static void subPrograms_statements();

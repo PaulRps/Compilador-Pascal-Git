@@ -1,20 +1,19 @@
-#ifndef __SyntaticalAnalizer_H__
-#define __SyntaticalAnalizer_H__
+#ifndef __Syntax_H__
+#define __Syntax_H__
 
 #include "Lexical.h"
 #include "File.h"
-#include "VariableStatement.h"
-#include "SubProgramsStatements.h"
-#include "Stack.h"
+#include "Context_Free_Grammar.h"
+#include "MyStack.h"
 
-#include <string>
-#include <iostream>
-#include <vector>
+// #include <string>
+// #include <iostream>
+// #include <vector>
 #include <stdexcept>//excecao
 
 using namespace std;
 
-class SyntaticalAnalizer{
+class Syntax{
 
 private:
   static vector<Token>::iterator tb_token_;
@@ -31,6 +30,7 @@ public:
   static bool lookahead_category(string c);
   static void program();
   static void nextToken();
+  static void check_scope();
   static void error(string m, string f);
 };
 

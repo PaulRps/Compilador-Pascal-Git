@@ -1,0 +1,15 @@
+program exLocal;
+var
+   a, b, c, display: integer;
+
+begin
+
+  if(a > b) then c :=1;
+  for a := 1 to 10 do
+   a := a;
+
+   b := a;
+   c := b;
+
+
+end.

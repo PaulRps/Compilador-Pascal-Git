@@ -2,12 +2,12 @@
 #define __Lexical_H__
 
 #include "Token.h"
-#include <string>
+
+// #include <string>
 #include <iostream>
-#include <ctype.h>
-#include <vector>
-//#include <tr1/unordered_map>//map de key words on linux and windows
-#include <unordered_map>//on mac
+// #include <ctype.h>
+// #include <vector>
+#include <unordered_map>
 #include <algorithm>//função transform(, ::tolower)
 
 
@@ -40,7 +40,6 @@
 #define RELATION_OPERATOR_DIFFERENT 26
 
 using namespace std;
-//using namespace tr1;
 
 class Lexical{
 
