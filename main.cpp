@@ -1,20 +1,20 @@
 #include "Syntax.h"
 
-using namespace std;
-
 int main(){
 
-	File::timeIn();//CONTA A HORA QUE INICIOU A EXECUCAO
+	File::getInstance()->timeIn();//CONTA A HORA QUE INICIOU A EXECUCAO
 
 	try{
 
-		Syntax::program();
+		Syntax::getInstance()->program();
 
 	}catch(runtime_error &e){
-		cout << e.what() << endl;
+		std::cerr << e.what() << "\n";		
 	}
 
-	File::executionTime();//EXIBE O TEMPO DE EXECUCAO DO PROGRAMA
+	File::getInstance()->executionTime();//EXIBE O TEMPO DE EXECUCAO DO PROGRAMA
+
+	delete [] File::getInstance();
 
 	return 0;
 }

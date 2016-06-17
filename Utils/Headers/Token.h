@@ -10,15 +10,15 @@ class Token {
 private:
     string token_;
     string category_;
-    string type_;
     int line_;
+    string type_;
 public:
-    Token(string t, string c, int l, string tp = "");
+    Token(const string t, const string c, const int l, const string tp = "");
     string getToken() const;
     string getCategory() const;
     string getType() const;
-    void setType(string t);
-    void setCategory(string t);
+    void setType(const string t);
+    void setCategory(const string t);
     int getLine() const;
 };
 

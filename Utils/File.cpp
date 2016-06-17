@@ -10,10 +10,19 @@ ESTA CLASSE IMPLEMENTA A LOGICA PARA ENTRADA DE DADOS PELA LEITURA DE ARQUIVOS E
 CONTAGEM DO TEMPO DE EXECUCAO DO PROGRAMA.
 --------------------------------------------------------------------------------*/
 
-float File::time_begin;//ARMAZENA O TEMPO QUE O PROGRAMA COMECOU A RODAR
+File* File::instance_ = nullptr;
 
 /*********** INICIO DAS DEFINICOES DAS FUNCOES **********/
-string File::dataInput(string fileName){
+File::File(): time_begin_(0){}
+
+File* File::getInstance(){
+    if(!instance_){
+        instance_ = new File;
+    }
+    return instance_;
+}
+
+string File::dataInput(const string fileName){
 
   string result;
   char char_symbol;
@@ -33,7 +42,7 @@ string File::dataInput(string fileName){
 
   }else{
 
-    cout << "\nO ARQUIVO " << fileName << " NAO EXISTE NESSE DIRETORIO!" << endl;
+    cerr << "\nO ARQUIVO " << fileName << " NAO EXISTE NESSE DIRETORIO!" << "\n\n";
     exit (EXIT_FAILURE);
 
   }
@@ -44,14 +53,15 @@ string File::dataInput(string fileName){
 void File::timeIn(){
 
   //File::time_begin = GetTickCount();
-  File::time_begin = clock();
+  File::time_begin_ = clock();
 
 }
 
 void File::executionTime(){
 
-  cout.precision(5);
+  cerr.precision(5);
   //cout << fixed << "\nExecution Time: " << (double)((GetTickCount() - File::time_begin) / 1000.00) << "s\n" << endl;
-  cout << fixed << "\nExecution Time: " << (double)( clock() - time_begin )/1000.0 << "s\n" << endl;
+  cerr << fixed << "\nExecution Time: " << (double)( clock() - time_begin_ )/1000.0 << "s\n" << "\n";
 }
+
 /*********** FIM DAS DEFINICOES DAS FUNCOES **********/

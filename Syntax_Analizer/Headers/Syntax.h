@@ -4,34 +4,51 @@
 #include "Lexical.h"
 #include "File.h"
 #include "Context_Free_Grammar.h"
-#include "MyStack.h"
+#include "Semantic.h"
 
-// #include <string>
-// #include <iostream>
-// #include <vector>
 #include <stdexcept>//excecao
 
 using namespace std;
 
+// class Context_Free_Grammar;
+
 class Syntax{
 
 private:
-  static vector<Token>::iterator tb_token_;
-  static vector<Token>::iterator endTb_token_;
+    Lexical* lexical_;
+    // Context_Free_Grammar *grammar_;
+    vector<Token>::iterator tb_token_;
+    vector<Token>::iterator endTb_token_;
+    static Syntax *instance_;//singleton
+    Syntax();
 
 public:
-  static bool compareToken(string t);
-  static bool compareCategory(string c);
-  static vector<Token>::iterator getTb_Token();
-  static string get_currentToken();
-  static void setTb_Token(vector<Token>::iterator it);
-  static void init_tbTokens();
-  static bool lookahead_token(string t);
-  static bool lookahead_category(string c);
-  static void program();
-  static void nextToken();
-  static void check_scope();
-  static void error(string m, string f);
+    ~Syntax();
+    static Syntax* getInstance();
+    inline bool compareToken(string t);//inline
+    inline bool compareCategory(string c);//inline
+    vector<Token>::iterator getTb_Token();
+    string get_currentToken();
+    void setTb_Token(vector<Token>::iterator it);
+    void init_tbTokens();
+    bool lookahead_token(string t);
+    bool lookahead_category(string c);
+    void program();
+    inline void nextToken();//inline
+    void check_scope();
+    void error(string m, string f);
 };
+
+inline bool Syntax::compareToken(string t){
+    return (tb_token_->getToken().compare(t) == 0) ? true:false;
+}
+
+inline bool Syntax::compareCategory(string c){
+    return (tb_token_->getCategory().compare(c) == 0) ? true:false;
+}
+
+inline void Syntax::nextToken(){
+    ++tb_token_;
+}
 
 #endif

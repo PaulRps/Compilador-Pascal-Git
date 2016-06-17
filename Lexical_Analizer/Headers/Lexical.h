@@ -3,69 +3,132 @@
 
 #include "Token.h"
 
-// #include <string>
 #include <iostream>
-// #include <ctype.h>
-// #include <vector>
 #include <unordered_map>
 #include <algorithm>//função transform(, ::tolower)
 
 
-#define START 0
-#define COMMENT 1
-#define IDENTIFIER 2
-#define DIGIT 3
-#define REAL_NUMBER 4
-#define DELIMITER_TWO_POINT 5
-#define ATRIBUITION 6
-#define DELIMITER_SEMICOLON 7
-#define DELIMITER_DOT 8
-#define DELIMITER_COMMA 9
-#define DELIMITER_BRACKET_OPEN 10
-#define DELIMITER_BRACKET_CLOSE 11
-#define OPERATOR_ADDITIVE_SUM 12
-#define OPERATOR_ADDITIVE_SUBTRACTION 13
-#define OPERATOR_MULTIPLICATIVE_MULTIPLICATION 14
-#define OPERATOR_MULTIPLICATIVE_DIVISION 15
-#define RELATION_OPERATOR_EQUALITY 16
-#define RELATION_OPERATOR_BIGGER 17
-#define RELATION_OPERATOR_SMALLER 18
-#define RELATION_OPERATOR_BIGGER_OR_EQUAL 19
-#define RELATION_OPERATOR_SMALLER_OR_EQUAL 20
-#define OPENING_STRING 21
-#define COMMENT_NOT_CLOSE 22
-#define UNKNOW_SYMBOL 23
-#define LINE_COMMENT 24
-#define COMPLEX_NUMBER 25
-#define RELATION_OPERATOR_DIFFERENT 26
+enum State{ START ,
+    COMMENT ,
+    IDENTIFIER ,
+    DIGIT ,
+    REAL_NUMBER ,
+    DELIMITER_TWO_POINT ,
+    ATRIBUITION ,
+    DELIMITER_SEMICOLON ,
+    DELIMITER_DOT ,
+    DELIMITER_COMMA ,
+    DELIMITER_BRACKET_OPEN ,
+    DELIMITER_BRACKET_CLOSE ,
+    OPERATOR_ADDITIVE_SUM ,
+    OPERATOR_ADDITIVE_SUBTRACTION ,
+    OPERATOR_MULTIPLICATIVE_MULTIPLICATION ,
+    OPERATOR_MULTIPLICATIVE_DIVISION ,
+    RELATION_OPERATOR_EQUALITY ,
+    RELATION_OPERATOR_BIGGER ,
+    RELATION_OPERATOR_SMALLER ,
+    RELATION_OPERATOR_BIGGER_OR_EQUAL ,
+    RELATION_OPERATOR_SMALLER_OR_EQUAL ,
+    OPENING_STRING,
+    COMMENT_NOT_CLOSE ,
+    UNKNOW_SYMBOL ,
+    LINE_COMMENT ,
+    COMPLEX_NUMBER ,
+    RELATION_OPERATOR_DIFFERENT
+};
 
 using namespace std;
 
 class Lexical{
 
 private:
-  static int current_position_;
-  static int initial_position_;
-  static int numberLine_;
-  static int state_;
-  static vector<Token> tokens_;
-  static unordered_map<string, string> keyWords_;
+    int current_position_;
+    int initial_position_;
+    int numberLine_;
+    enum State state_;
+    vector<Token> tokens_;
+    unordered_map<string, string> keyWords_;
+    static Lexical *instance_;
+    Lexical ();
 
 public:
-  //AFD();
-  static void addToken(string code, string category, bool isKeyWord = false);
-  static void countLine();
-  static int getState();
-  static int getLine();
-  static vector<Token>::iterator getTokens();
-  static vector<Token>::iterator getEnd_Tokens();
-  static void ignoreToken();
-  static void initMap_KeyWords();
-  static void restartState();
-  static void start(string code, bool isComplexNumber = true);
-  static void showTokens();
+    ~Lexical();
+    static Lexical* getInstance();
+    inline void addToken(string code, string category, bool isKeyWord = false);
+    inline void countLine();
+    inline int getState() const;
+    inline int getLine() const;
+    vector<Token>::iterator getTokens();
+    vector<Token>::iterator getEnd_Tokens();
+    void ignoreToken();
+    void initMap_KeyWords();
+    inline void restartState();
+    void start(string code, bool isComplexNumber = true);
+    void showTokens();
 
 };
+
+inline void Lexical::addToken(string code, string category, bool isKeyWord){
+
+    string token = code.substr(initial_position_, current_position_ - initial_position_);
+
+    if(isKeyWord){
+
+        string lowerToken = token;//code.substr(initial_position_, current_position_ - initial_position_);
+        transform(lowerToken.begin(), lowerToken.end(), lowerToken.begin(), ::tolower);//converte para minúsculo
+
+        unordered_map<string, string>::iterator key = keyWords_.find(lowerToken);
+        if( key != keyWords_.end() ){
+
+            category = keyWords_[lowerToken];//seta a categoria associada ao token
+
+        }
+
+    }
+
+    if(category.compare("inteiro") == 0){
+        Token newToken(token, category, numberLine_, "integer");
+        tokens_.push_back(newToken);
+    }else if(category.compare("real") == 0){
+        Token newToken(token, category, numberLine_, "real");
+        tokens_.push_back(newToken);
+    }else if(category.compare("boolean") == 0){
+        Token newToken(token, category, numberLine_, "boolean");
+        tokens_.push_back(newToken);
+    }else{
+        Token newToken(token, category, numberLine_);
+        tokens_.push_back(newToken);
+    }
+
+    initial_position_ = current_position_;//atualiza a posição de inicio do novo token
+    --current_position_;//decrementa para não pular um simbolo na prox iteracao
+    restartState();//state = START
+
+}
+
+inline void Lexical::countLine(){
+
+    numberLine_++;
+
+}
+
+inline int Lexical::getLine() const{
+
+    return numberLine_;
+
+}
+
+inline int Lexical::getState() const{
+
+    return state_;
+
+}
+
+inline void Lexical::restartState(){
+
+    state_ = START;
+
+}
 
 
 #endif

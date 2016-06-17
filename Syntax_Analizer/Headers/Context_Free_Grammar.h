@@ -3,58 +3,72 @@
 
 #include "Error.h"
 #include "Syntax.h"
-#include "MyStack.h"
-
+#include "Semantic.h"
 
 class Context_Free_Grammar{
 
 private:
-  static int count_statement_id_;
+    int count_statement_id_;    
 
 public:
-  static void variables_statements();
-  static void variables_statements_list();
-  static void variables_statements_list_2();
-  static void identifiers_list();
-  static void identifiers_list_2();
-  static void type();
-  static void subPrograms_statements();
-  static void subPrograms_statements_2();
-  static void subProgram_Statement();
-  static void arguments();
-  static void parameters_list();
-  static void parameters_list_2();
-  static void composite_command();
-  static void optional_commands();
-  static void commands_list();
-  static void commands_list_2();
-  static void command();
-  static void command_2();
-  static void expression();
-  static void simple_expression();
-  static void simple_expression_2();
-  static void expression_2();
-  static void expressions_list();
-  static void expressions_list_2();
-  static void else_part();
-  static void relational_op();
-  static void term();
-  static void term_2();
-  static void factor();
-  static void factor_2();
-  static void signal();
-  static void additive_op();
-  static void multiplicative_op();
-  static void procedure_activation();
-  static void procedure_activation_2();
-  static void variable();
+    Context_Free_Grammar();
+    ~Context_Free_Grammar();
+    void variables_statements();
+    void variables_statements_list();
+    void variables_statements_list_2();
+    void identifiers_list();
+    void identifiers_list_2();
+    void type();
+    void subPrograms_statements();
+    void subPrograms_statements_2();
+    void subProgram_Statement();
+    void arguments();
+    void parameters_list();
+    void parameters_list_2();
+    void composite_command();
+    void optional_commands();
+    void commands_list();
+    void commands_list_2();
+    void command();
+    void command_2();
+    void expression();
+    void simple_expression();
+    void simple_expression_2();
+    void expression_2();
+    void expressions_list();
+    void expressions_list_2();
+    void else_part();
+    void relational_op();
+    void term();
+    void term_2();
+    void factor();
+    void factor_2();
+    void signal();
+    void additive_op();
+    void multiplicative_op();
+    void procedure_activation();
+    void procedure_activation_2();
+    void variable();
 
-  //aux funcions
-  static void count_statement_ID();
-  static int getCount_statement_ID();
-  static void reset_count_statement_ID();
-  static bool check_track(void(*f) (void));
+    //aux funcions
+    inline void count_statement_ID();
+    inline int getCount_statement_ID();
+    inline void reset_count_statement_ID();
+    bool check_track(/*void (Context_Free_Grammar::*func)()*/);
 
 };
+
+inline void Context_Free_Grammar::count_statement_ID(){
+    ++count_statement_id_;
+}
+
+inline int Context_Free_Grammar::getCount_statement_ID(){
+    return count_statement_id_;
+}
+
+inline void Context_Free_Grammar::reset_count_statement_ID(){
+    count_statement_id_ = 0;
+}
+
 
 #endif

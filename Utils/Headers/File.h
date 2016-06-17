@@ -14,13 +14,15 @@ using namespace std;
 class File{
 
 private:
-  static float time_begin;
+    float time_begin_;
+    static File *instance_;
+    File();
 
 public:
-  static std::string dataInput(string fileName);
-  static void timeIn();
-  static void executionTime();
-
+    static File* getInstance();
+    string dataInput(const string fileName);
+    void timeIn();
+    void executionTime();
 };
 
 #endif

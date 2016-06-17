@@ -2,7 +2,7 @@
   "cmd": "g++",
   "args": [
       "-std=c++11",
-      "-g3 -Wall -Werror",
+      "-g3 -Wall -Werror -pedantic -O2",
       "-I Lexical_Analizer\\Headers",
       "-I Syntax_Analizer\\Headers",
       "-I Semantic_Analizer\\Headers",
